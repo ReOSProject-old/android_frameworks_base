@@ -587,4 +587,6 @@
 
     <!-- Thickness of the shadows of the assist disclosure beams -->
     <dimen name="assist_disclosure_shadow_thickness">1.5dp</dimen>
+	
+    <dimen name="weather_text_size">12sp</dimen>
 </resources>

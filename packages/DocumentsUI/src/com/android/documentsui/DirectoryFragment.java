@@ -613,6 +613,7 @@ public class DirectoryFragment extends Fragment {
                 // Directories and footer items cannot be checked
                 boolean valid = false;
                 boolean hasFolder = false;
+
                 final State state = getDisplayState(DirectoryFragment.this);
                 final Cursor cursor = mAdapter.getItem(position);
                 if (cursor != null) {
@@ -641,12 +642,13 @@ public class DirectoryFragment extends Fragment {
                     final MenuItem cut = menu.findItem(R.id.menu_cut);
                     copy.setVisible(false);
                     cut.setVisible(false);
-                    }
                 }
+
                 if (!valid) {
                     mCurrentView.setItemChecked(position, false);
                 }
             }
+
             mode.setTitle(TextUtils.formatSelectedCount(mCurrentView.getCheckedItemCount()));
         }
     };

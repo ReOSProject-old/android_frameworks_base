@@ -48,6 +48,7 @@ import android.os.storage.IMountService;
 import android.os.storage.IMountShutdownObserver;
 import android.system.ErrnoException;
 import android.system.Os;
+import android.provider.Settings;
 import android.widget.ListView;
 
 import com.android.internal.telephony.ITelephony;
@@ -141,11 +142,11 @@ public final class ShutdownThread extends Thread {
     private static boolean isAdvancedRebootPossible(final Context context) {
         KeyguardManager km = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
         boolean keyguardLocked = km.inKeyguardRestrictedInputMode() && km.isKeyguardSecure();
-        boolean advancedRebootEnabled = context.getResources().getBoolean(
-            com.android.internal.R.bool.config_advanced_reboot);
+        boolean advancedRebootEnabled = Settings.Secure.getInt(context.getContentResolver(),
+            Settings.Secure.ADVANCED_REBOOT, 0) == 1;
         boolean isPrimaryUser = UserHandle.getCallingUserId() == UserHandle.USER_OWNER;
 
-        return advancedRebootEnabled && !mRebootSafeMode && !keyguardLocked && isPrimaryUser;
+        return advancedRebootEnabled && !keyguardLocked && isPrimaryUser;
     }
 
     static void shutdownInner(final Context context, boolean confirm) {
